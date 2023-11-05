@@ -1,9 +1,18 @@
-FROM python:3.10-alpine
+# Use the official Python image as the base image
+FROM python:3.8
 
+# Set the working directory
 WORKDIR /app
 
-COPY . /app
+# Copy the requirements file into the container
+COPY requirements.txt .
 
-RUN pip install cv2 numpy
-EXPOSE 3000
-CMD python ./Line_Detection.py
+# Install the required packages using pip
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy your project files into the container
+COPY . .
+
+# Specify the command to run when the container starts
+CMD ["python", "Line_Detection.py"]
+
